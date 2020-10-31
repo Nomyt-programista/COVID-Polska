@@ -7,7 +7,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import * as firebase from "firebase";
 import firebaseConfig from "./app/config/config_firebase";
 import Restriction from "./app/screens/Restriction";
-
+import { NoInternet } from "react-native-no-internet-screen";
 var data_ = "";
 class Polska extends Component {
   render() {
@@ -17,7 +17,7 @@ class Polska extends Component {
 
 class Ograniczenia extends Component {
   render() {
-    return <Restriction></Restriction>;
+    return <Restriction data={data_}></Restriction>;
   }
 }
 
@@ -52,7 +52,14 @@ function MyTabs() {
 }
 
 class App extends Component {
-  componentDidMount() {
+  constructor() {
+    super();
+    this.state = {
+      isConnected: true,
+    };
+  }
+
+  render() {
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
@@ -62,14 +69,20 @@ class App extends Component {
       .on("value", function (snapshot) {
         data_ = snapshot.val();
       });
-  }
-  render() {
+
     return (
-      <React.Fragment>
-        <NavigationContainer>
-          <MyTabs />
-        </NavigationContainer>
-      </React.Fragment>
+      <NoInternet
+        MainComponent={
+          <React.Fragment>
+            <NavigationContainer>
+              <MyTabs />
+            </NavigationContainer>
+          </React.Fragment>
+        }
+        containerStyle={{ backgroundColor: "white" }}
+        textStyle={{ color: "white" }}
+        buttoneStyle={{ backgroundColor: "white" }}
+      />
     );
   }
 }

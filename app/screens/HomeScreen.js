@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { RFValue } from "react-native-responsive-fontsize";
 import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
+import * as firebase from "firebase";
+import firebaseConfig from "../config/config_firebase";
 
 import {
   StyleSheet,
@@ -19,6 +21,8 @@ import Svg, { Path, G } from "react-native-svg";
 import colors from "../config/colors";
 import WigetHomeBlue from "../components/WigetHomeBlue";
 import WigetHomeRed from "../components/WigetHomeRed";
+
+let data = "";
 
 class HomeScreen extends Component {
   constructor() {
@@ -58,36 +62,41 @@ class HomeScreen extends Component {
     };
   }
 
-  componentDidMount() {
-    const data = this.props.data;
+  // componentDidMount() {
+  //   var color = [...this.state.color];
 
-    console.log(data);
+  //   color[0].id0 = data.id0.color;
+  //   color[1].id1 = data.id1.color;
+  //   color[2].id2 = data.id2.color;
+  //   color[3].id3 = data.id3.color;
+  //   color[4].id4 = data.id4.color;
+  //   color[5].id5 = data.id5.color;
+  //   color[6].id6 = data.id6.color;
+  //   color[7].id7 = data.id7.color;
+  //   color[8].id8 = data.id8.color;
+  //   color[9].id9 = data.id9.color;
+  //   color[10].id10 = data.id10.color;
+  //   color[11].id11 = data.id11.color;
+  //   color[12].id12 = data.id12.color;
+  //   color[13].id13 = data.id13.color;
+  //   color[14].id14 = data.id14.color;
+  //   color[15].id15 = data.id15.color;
+  //   color[16].id16 = data.id16.color;
 
-    var color = [...this.state.color];
-
-    color[0].id0 = data.id0.color;
-    color[1].id1 = data.id1.color;
-    color[2].id2 = data.id2.color;
-    color[3].id3 = data.id3.color;
-    color[4].id4 = data.id4.color;
-    color[5].id5 = data.id5.color;
-    color[6].id6 = data.id6.color;
-    color[7].id7 = data.id7.color;
-    color[8].id8 = data.id8.color;
-    color[9].id9 = data.id9.color;
-    color[10].id10 = data.id10.color;
-    color[11].id11 = data.id11.color;
-    color[12].id12 = data.id12.color;
-    color[13].id13 = data.id13.color;
-    color[14].id14 = data.id14.color;
-    color[15].id15 = data.id15.color;
-    color[16].id16 = data.id16.color;
-
-    this.setState({ color });
-  }
+  //   this.setState({ color });
+  // }
 
   render() {
-    const { data } = this.props;
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+
+    firebase
+      .database()
+      .ref("dataDzis/")
+      .on("value", function (snapshot) {
+        data = snapshot.val();
+      });
 
     const onPress = (ID) => {
       this.setState({ now: { id: ID } });

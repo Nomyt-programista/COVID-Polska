@@ -13,9 +13,9 @@ import {
 
 function WigetRestrictions(props) {
   return (
-    <View style={styles.object}>
-      <View style={styles.imageHolder} />
-    </View>
+    <TouchableOpacity style={styles.object}>
+      <Text>ygbybhgy</Text>
+    </TouchableOpacity>
   );
 }
 const styles = StyleSheet.create({
