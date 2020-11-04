@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { RFValue } from "react-native-responsive-fontsize";
-import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import * as firebase from "firebase";
 import firebaseConfig from "../config/config_firebase";
 
@@ -62,41 +62,57 @@ class HomeScreen extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   var color = [...this.state.color];
+  componentDidMount() {
+    const { data } = this.props;
+    const ID = "id16";
+    this.setState({ now: { id: ID } });
 
-  //   color[0].id0 = data.id0.color;
-  //   color[1].id1 = data.id1.color;
-  //   color[2].id2 = data.id2.color;
-  //   color[3].id3 = data.id3.color;
-  //   color[4].id4 = data.id4.color;
-  //   color[5].id5 = data.id5.color;
-  //   color[6].id6 = data.id6.color;
-  //   color[7].id7 = data.id7.color;
-  //   color[8].id8 = data.id8.color;
-  //   color[9].id9 = data.id9.color;
-  //   color[10].id10 = data.id10.color;
-  //   color[11].id11 = data.id11.color;
-  //   color[12].id12 = data.id12.color;
-  //   color[13].id13 = data.id13.color;
-  //   color[14].id14 = data.id14.color;
-  //   color[15].id15 = data.id15.color;
-  //   color[16].id16 = data.id16.color;
+    let dataNew = "";
 
-  //   this.setState({ color });
-  // }
+    var newstate = [...this.state.newstate];
+    var color = [...this.state.color];
 
-  render() {
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
+    color[0].id0 = data.id0.color;
+    color[1].id1 = data.id1.color;
+    color[2].id2 = data.id2.color;
+    color[3].id3 = data.id3.color;
+    color[4].id4 = data.id4.color;
+    color[5].id5 = data.id5.color;
+    color[6].id6 = data.id6.color;
+    color[7].id7 = data.id7.color;
+    color[8].id8 = data.id8.color;
+    color[9].id9 = data.id9.color;
+    color[10].id10 = data.id10.color;
+    color[11].id11 = data.id11.color;
+    color[12].id12 = data.id12.color;
+    color[13].id13 = data.id13.color;
+    color[14].id14 = data.id14.color;
+    color[15].id15 = data.id15.color;
+    color[16].id16 = "#fcd303";
+
+    dataNew = data.id16;
+
+    newstate[0].Bilanszachorowań = dataNew.Bilanszachorowań;
+    newstate[1].Bilanszgonów = dataNew.Bilanszgonów;
+    newstate[2].Liczbazgonów = dataNew.Liczbazgonów;
+    newstate[3].Liczba = dataNew.Liczba;
+    newstate[4].Przewidywanezachorowania = dataNew.Przewidywanezachorowania;
+    newstate[5].Przewidywanezgony = dataNew.Przewidywanezgony;
+    newstate[6].color = dataNew.color;
+    newstate[7].nazwa = dataNew.nazwa;
+
+    if (ID === "id16") {
+      newstate[8].strefa = "";
+    } else {
+      newstate[8].strefa = dataNew.strefa;
     }
 
-    firebase
-      .database()
-      .ref("dataDzis/")
-      .on("value", function (snapshot) {
-        data = snapshot.val();
-      });
+    this.setState({ newstate });
+    this.setState({ color });
+  }
+
+  render() {
+    const { data } = this.props;
 
     const onPress = (ID) => {
       this.setState({ now: { id: ID } });
@@ -381,6 +397,15 @@ class HomeScreen extends Component {
             </View>
 
             <WigetHomeBlue
+              data={"   " + this.state.newstate[3].Liczba}
+              title="Ilość chorych łącznie"
+            />
+            <WigetHomeRed
+              data={"   " + this.state.newstate[2].Liczbazgonów}
+              title="Ilość zgonów łącznie"
+            />
+
+            <WigetHomeBlue
               data={"   " + this.state.newstate[0].Bilanszachorowań}
               title="Liczba zachorowań dzisiaj"
             />
@@ -390,14 +415,6 @@ class HomeScreen extends Component {
             />
 
             <WigetHomeBlue
-              data={"   " + this.state.newstate[3].Liczba}
-              title="Ilość chorych łącznie"
-            />
-            <WigetHomeRed
-              data={"   " + this.state.newstate[2].Liczbazgonów}
-              title="Ilość zgonów łącznie"
-            />
-            <WigetHomeBlue
               data={"   " + this.state.newstate[4].Przewidywanezachorowania}
               title="Przewidywana liczba zachorowań"
             />
@@ -405,8 +422,9 @@ class HomeScreen extends Component {
               data={"   " + this.state.newstate[5].Przewidywanezgony}
               title="Przewidywana liczba zgonów"
             />
+            {}
 
-            <View style={{ justifyContent: "flex-end", height: "10%" }}>
+            <View style={{ justifyContent: "flex-end", height: "7%" }}>
               <Text>Źródło danych: www.gov.pl</Text>
             </View>
           </View>
@@ -470,6 +488,7 @@ const styles = StyleSheet.create({
   bigText: {
     fontSize: RFValue(25),
     textTransform: "capitalize",
+    color: "#5A5A5A",
   },
 
   underline: {

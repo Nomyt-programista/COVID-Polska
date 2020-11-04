@@ -15,26 +15,27 @@ import {
 import WigetRestrictions from "../components/WigetRestrictions";
 import colors from "../config/colors";
 import { RFValue } from "react-native-responsive-fontsize";
-import { cos } from "react-native-reanimated";
-
-let data = "";
 
 class Restriction extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      isLoaded: false,
-      props: 0,
-    };
-  }
-  componentDidMount() {
-    this.setState({ props: this.props.data.obostrzenia });
-  }
   render() {
-    console.log(this.state.props);
-    if (this.state.props != undefined) {
-      return <Text>{this.state.props[0]}</Text>;
-    }
+    const { data } = this.props;
+
+    return (
+      <SafeAreaView>
+        <ScrollView>
+          <View style={styles.Header}>
+            <Text style={styles.HeaderText}>Ograniczenia</Text>
+          </View>
+          <View style={styles.data}>
+            {data.map((element, i) => {
+              return (
+                <WigetRestrictions key={i} data={element}></WigetRestrictions>
+              );
+            })}
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    );
   }
 }
 
@@ -43,10 +44,20 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     alignItems: "flex-start",
     backgroundColor: colors.bgColor,
-    height: Dimensions.get("screen").height * 1.1,
+    height: Dimensions.get("screen").height * 1.9,
     width: Dimensions.get("screen").width,
     flexDirection: "row",
     flexWrap: "wrap",
+  },
+  HeaderText: {
+    fontSize: RFValue(30),
+    marginLeft: "6%",
+    color: colors.red,
+  },
+  Header: {
+    width: "100%",
+    height: "5%",
+    justifyContent: "center",
   },
 });
 

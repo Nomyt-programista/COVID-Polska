@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
   bigText: {
     fontSize: RFValue(15),
     margin: "8%",
+    color: "#5A5A5A",
   },
   dataText: {
     fontSize: RFValue(20),

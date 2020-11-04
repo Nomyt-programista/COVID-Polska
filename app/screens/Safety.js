@@ -136,8 +136,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   imageHolder: {
-    width: "60%",
-    height: "50%",
+    width: "55%",
+    height: "45%",
     alignSelf: "center",
     justifyContent: "center",
     alignItems: "center",
@@ -147,8 +147,9 @@ const styles = StyleSheet.create({
   textHolder: {
     margin: "7%",
     marginTop: "5%",
-    fontSize: RFValue(10),
+    fontSize: RFValue(12),
     textAlign: "center",
+    color: "#5A5A5A",
   },
   data: {
     justifyContent: "space-evenly",

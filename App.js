@@ -1,14 +1,20 @@
 import React, { Component } from "react";
-import HomeScreen from "./app/screens/HomeScreen";
-import Safety from "./app/screens/Safety";
+import { View, ActivityIndicator, Button, Pressable } from "react-native";
+
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
+
 import * as firebase from "firebase";
 import firebaseConfig from "./app/config/config_firebase";
+
 import Restriction from "./app/screens/Restriction";
-import { NoInternet } from "react-native-no-internet-screen";
-var data_ = "";
+import HomeScreen from "./app/screens/HomeScreen";
+import Safety from "./app/screens/Safety";
+import { Feather } from "@expo/vector-icons";
+
+let data_ = "";
+
 class Polska extends Component {
   render() {
     return <HomeScreen data={data_}></HomeScreen>;
@@ -17,7 +23,7 @@ class Polska extends Component {
 
 class Ograniczenia extends Component {
   render() {
-    return <Restriction data={data_}></Restriction>;
+    return <Restriction data={data_.obostrzenia}></Restriction>;
   }
 }
 
@@ -34,6 +40,8 @@ function MyTabs() {
             iconName = focused ? "ios-medkit" : "ios-medkit";
           } else if (route.name === "Polska") {
             iconName = focused ? "ios-home" : "ios-home";
+          } else if (route.name === "Ograniczenia") {
+            return <Feather name="alert-triangle" size={size} color={color} />;
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -52,14 +60,9 @@ function MyTabs() {
 }
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      isConnected: true,
-    };
-  }
+  state = { data_: "" };
 
-  render() {
+  componentDidMount() {
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
@@ -70,19 +73,31 @@ class App extends Component {
         data_ = snapshot.val();
       });
 
+    this.setState({ data_ });
+    setTimeout(() => {
+      this.setState({ data_ });
+    }, 2000);
+  }
+
+  render() {
     return (
-      <NoInternet
-        MainComponent={
-          <React.Fragment>
-            <NavigationContainer>
-              <MyTabs />
-            </NavigationContainer>
-          </React.Fragment>
-        }
-        containerStyle={{ backgroundColor: "white" }}
-        textStyle={{ color: "white" }}
-        buttoneStyle={{ backgroundColor: "white" }}
-      />
+      <React.Fragment>
+        {this.state.data_ === "" ? (
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100%",
+            }}
+          >
+            <ActivityIndicator size="large" color="red" />
+          </View>
+        ) : (
+          <NavigationContainer>
+            <MyTabs />
+          </NavigationContainer>
+        )}
+      </React.Fragment>
     );
   }
 }
