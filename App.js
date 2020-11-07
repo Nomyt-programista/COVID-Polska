@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { View, ActivityIndicator, Button, Pressable } from "react-native";
-import NetInfo from "@react-native-community/netinfo";
+
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import Internet from "./app/components/internet"
 import * as firebase from "firebase";
 import firebaseConfig from "./app/config/config_firebase";
 
@@ -58,14 +57,7 @@ function MyTabs() {
     </Tab.Navigator>
   );
 }
-let internet=false;
-NetInfo.fetch().then(state => {
-  if(state.isConnected==true){
-    internet=true;
-    console.log(internet);
-  }
-  
-});
+
 class App extends Component {
   state = { data_: "" };
 
@@ -87,7 +79,6 @@ class App extends Component {
   }
   
   render() {
-    if(internet == true){
       return (
 
         <React.Fragment>
@@ -108,13 +99,7 @@ class App extends Component {
             )}
         </React.Fragment>
       );
-    }
-    else{
-      return (
-          <Internet></Internet>
-        
-      );
-    }
+    
     
   }
 }
