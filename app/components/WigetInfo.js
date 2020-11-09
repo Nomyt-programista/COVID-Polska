@@ -1,31 +1,39 @@
 import React, { useState } from "react";
+import { RFValue } from "react-native-responsive-fontsize";
+import { Entypo, AntDesign } from "@expo/vector-icons";
+import colors from "../config/colors";
+
 import {
   StyleSheet,
   SafeAreaView,
-  Text,
-  Modal,
-  TouchableOpacity,
-  Button,
+  StatusBar,
+  Platform,
   View,
+  Dimensions,
+  Modal,
+  Text,
+  ScrollView,
+  TouchableOpacity,
 } from "react-native";
 
-import { RFValue } from "react-native-responsive-fontsize";
-import colors from "../config/colors";
-import { AntDesign } from "@expo/vector-icons";
-import InfoText from "./infoText";
-
-function WigetRestrictions(props) {
-  const { data } = props;
+function WigetInfo() {
   const [modalVisible, setModalVisible] = useState(false);
-
   return (
     <>
-      <TouchableOpacity
-        style={styles.object}
-        onPress={() => setModalVisible(true)}
-      >
-        <Text style={styles.title}>{data.nazwa}</Text>
-      </TouchableOpacity>
+      <View style={styles.source}>
+        <Entypo
+          name="info-with-circle"
+          size={24}
+          color={colors.red}
+          onPress={() => setModalVisible(true)}
+        />
+        <Text
+          style={{ color: colors.red }}
+          onPress={() => setModalVisible(true)}
+        >
+          Źródło
+        </Text>
+      </View>
       <Modal visible={modalVisible} animationType="slide">
         <SafeAreaView>
           <AntDesign
@@ -36,18 +44,24 @@ function WigetRestrictions(props) {
             onPress={() => setModalVisible(false)}
           />
           <View style={styles.infoView}>
-            <Text style={styles.bigText}>{data.nazwa} </Text>
-            <Text style={styles.areaText}>Strefa Czerwona </Text>
-            {data.strefaczerwona.map((element, i) => {
-              return <InfoText key={i} text={element}></InfoText>;
-            })}
+            <Text style={styles.areaText}>
+              Dane dotyczące "ilości chorych łącznie", "ilości zgonów łącznie"
+              oraz dane w zakładce Ograniczenia pochodzą ze strony "www.gov.pl"
+            </Text>
           </View>
         </SafeAreaView>
       </Modal>
     </>
   );
 }
+
 const styles = StyleSheet.create({
+  source: {
+    justifyContent: "center",
+    alignItems: "center",
+    height: "10%",
+    width: "100%",
+  },
   object: {
     marginTop: "2.5%",
     width: "95%",
@@ -60,7 +74,8 @@ const styles = StyleSheet.create({
   infoView: {
     alignItems: "center",
     paddingTop: "5%",
-    textAlign:"center"
+    width: "95%",
+    textAlign: "center",
   },
   imageHolder: {
     width: "60%",
@@ -72,22 +87,22 @@ const styles = StyleSheet.create({
   title: {
     fontSize: RFValue(15),
     color: "#5A5A5A",
-    textAlign:"center"
+    textAlign: "center",
   },
   bigText: {
     fontSize: RFValue(25),
     textTransform: "capitalize",
     color: "red",
-    textAlign:"center"
+    textAlign: "center",
   },
   areaText: {
-    alignSelf:"flex-start",
-    marginLeft:"5%",
-    marginTop:"5%",
+    alignSelf: "flex-start",
+    marginLeft: "5%",
+    marginTop: "5%",
     fontSize: RFValue(20),
-    textTransform: "capitalize",
+
     color: colors.red,
   },
 });
 
-export default WigetRestrictions;
+export default WigetInfo;

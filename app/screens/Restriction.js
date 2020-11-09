@@ -53,11 +53,14 @@ const styles = StyleSheet.create({
     fontSize: RFValue(30),
     marginLeft: "6%",
     color: colors.red,
+    marginTop:"7%"
+    
   },
   Header: {
     width: "100%",
-    height: "5%",
+    height: "6%",
     justifyContent: "center",
+    backgroundColor: colors.bgColor,
   },
 });
 

@@ -13,10 +13,10 @@ function InfoText(props) {
 
 const styles = StyleSheet.create({
   info: {
-    fontSize: RFValue(17),
+    fontSize: RFValue(15),
   },
   main: {
-    width: "80%",
+    width: "90%",
     paddingTop: "4%",
   },
 });

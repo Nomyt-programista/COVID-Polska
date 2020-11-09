@@ -4,7 +4,6 @@ import { View, ActivityIndicator, Button, Pressable } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
-
 import * as firebase from "firebase";
 import firebaseConfig from "./app/config/config_firebase";
 
@@ -78,27 +77,30 @@ class App extends Component {
       this.setState({ data_ });
     }, 2000);
   }
-
+  
   render() {
-    return (
-      <React.Fragment>
-        {this.state.data_ === "" ? (
-          <View
-            style={{
-              justifyContent: "center",
-              alignItems: "center",
-              height: "100%",
-            }}
-          >
-            <ActivityIndicator size="large" color="red" />
-          </View>
-        ) : (
-          <NavigationContainer>
-            <MyTabs />
-          </NavigationContainer>
-        )}
-      </React.Fragment>
-    );
+      return (
+
+        <React.Fragment>
+          {this.state.data_ === "" ? (
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
+              }}
+            >
+              <ActivityIndicator size="large" color="red" />
+            </View>
+          ) : (
+              <NavigationContainer>
+                <MyTabs />
+              </NavigationContainer>
+            )}
+        </React.Fragment>
+      );
+    
+    
   }
 }
 export default App;

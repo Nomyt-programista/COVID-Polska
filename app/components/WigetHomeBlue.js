@@ -26,7 +26,7 @@ function WigetHome({ title, data }) {
 const styles = StyleSheet.create({
   viget: {
     width: "45%",
-    height: "22%",
+    height: "21%",
     backgroundColor: "#FFFEFE",
     borderRadius: 10,
     marginTop: "5%",

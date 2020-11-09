@@ -121,12 +121,13 @@ const styles = StyleSheet.create({
   HeaderText: {
     fontSize: RFValue(30),
     marginLeft: "6%",
-    color: "rgba(359, 72, 100, 100)",
+    color: colors.red,
   },
   Header: {
     width: "100%",
     height: "10%",
     justifyContent: "center",
+    marginTop:"5%"
   },
   object: {
     marginTop: "2.5%",
